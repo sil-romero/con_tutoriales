@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX simple</title>
+</head>
+<body>
+    
+<button onclick="enviarPeticion()">envia una peticion AJAX</button>
+
+<h1 id="titulo"></h1>
+
+<script>
+   // el usuario da click en el boton. el boton ejecuta la funcion
+   //  la funcion envia la peticion al sevidor. cuando el servidor escucha la peticion
+   // devuelve un string. luego muestra por consola la respuesta en forma de texto
+function enviarPeticion() {
+    // pido una peticion a mi backend con el método XMLHttpRequest, lo inicializo con new
+    // y me devuelve un objeto que lo guardo en una variable 
+    let elObjeto = new XMLHttpRequest();
+    // con este objeto pedimos datos a una direccion de internet, pedimos a nuestro backend
+    // con el método open decimos a donde vamos a pedir, solicitamos datos con la peticion GET y POST para enviar datos
+    elObjeto.open('POST', 'backend.php', true);
+    // establecemos que le estamos pediendo osea datos 
+    elObjeto.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // el método onreadystatechange se encarga ver lo que recibimos del servidor 
+    elObjeto.onreadystatechange = function () {
+        // escuchamos la respuesta en formato de texto 
+        //console.log(elObjeto.responseText);
+        document.getElementById("titulo").innerHTML = elObjeto.responseText;
+    } 
+    // ejecutamos la peticion
+    elObjeto.send('nombreUsuario=Silvana');
+}
+</script>
+
+</body>
+</html>
